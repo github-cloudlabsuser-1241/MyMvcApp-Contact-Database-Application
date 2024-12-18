@@ -87,6 +87,20 @@ public class UserController : Controller
         }
 
         // POST: User/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var user = userlist.FirstOrDefault(u => u.Id == id);
+            if (user == null)
+            {
+            return NotFound();
+            }
+
+            userlist.Remove(user);
+            return RedirectToAction(nameof(Index));
+        }
+        // POST: User/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, IFormCollection collection)
         {
